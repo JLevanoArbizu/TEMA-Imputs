@@ -11,7 +11,7 @@
     </h:head>
 
     <h:body>
-       <h:form>
+        <h:form>
             <p:tabMenu activeIndex="#{param.i}">
 
                 <p:menuitem value="Ejemplo1" outcome="tarea">
@@ -37,11 +37,10 @@
             <p:autoUpdate />
         </p:messages>
 
-       <h1>
-            <center>EJEMPLO1</center>
-           
-        </h1>
+        <h1>
+            <center>ANTES</center>
 
+        </h1>
 
         <h:form id="FormTarea"> 
             <p:panelGrid columns="2">
@@ -61,7 +60,7 @@
 
 
 
-                <h:outputText value="Sexo" />
+                <h:outputText value="Platform:" />
                 <p:selectOneButton value="#{tareaC.tarea.DATO3}">
                     <f:selectItem itemLabel="Seleccionar" itemValue="" />
                     <f:selectItem itemLabel="Masculino" itemValue="M" />
@@ -82,8 +81,8 @@
                 <p:commandButton value="Registrar" actionListener="#{tareaC.registrarTarea()}" update="FormTarea FormTblTarea:tblTarea"/>
 
             </p:panelGrid>
-            
-            
+
+
 
 
 
@@ -114,26 +113,16 @@
                 <p:column headerText="dato1" style="width: 100px">
                     <p:outputLabel value="#{tarea.DATO1}" />
                 </p:column>
-
-                <p:column headerText="dato2" style="width: 250px"> 
-                    <h:outputText value="#{tarea.DATO2 eq 'A' ? 'Administrador' :  ''}"/>
-                    <h:outputText value="#{tarea.DATO2 eq 'S' ? 'Super usuario' :  ''}"/>                    
-                    <h:outputText value="#{tarea.DATO2 eq 'M' ? 'Mortal' :  ''}"/> 
+                <p:column headerText="dato2" style="width: 100px">
+                    <p:outputLabel value="#{tarea.DATO2}" />
                 </p:column>
-                <p:column headerText="dato3" style="width: 250px"> 
-                    <h:outputText value="#{tarea.DATO3 eq 'M' ? 'Masculino' :  ''}"/>
-                    <h:outputText value="#{tarea.DATO3 eq 'F' ? 'Femenino' :  ''}"/>                    
-                    <h:outputText value="#{tarea.DATO3 eq 'S' ? 'Sin Especificar' :  ''}"/> 
-                    <h:outputText value="#{tarea.DATO3 eq 'p' ? 'Pokemon' :  ''}"/>
+                <p:column headerText="dato3" style="width: 100px">
+                    <p:outputLabel value="#{tarea.DATO3}" />
+                </p:column>
+                <p:column headerText="dato4" style="width: 100px">
+                    <p:outputLabel value="#{tarea.DATO4}" />
                 </p:column>
 
-
-                <p:column headerText="dato4" style="width: 250px"> 
-                    <h:outputText value="#{tarea.DATO4 eq 'M' ? 'Masculino' :  ''}"/>
-                    <h:outputText value="#{tarea.DATO4 eq 'F' ? 'Femenino' :  ''}"/>                    
-                    <h:outputText value="#{tarea.DATO4 eq 'S' ? 'Sin Especificar' :  ''}"/> 
-                    <h:outputText value="#{tarea.DATO4 eq 'p' ? 'Pokemon' :  ''}"/>
-                </p:column>
 
             </p:dataTable>
             <p:contextMenu for="tblTarea">
@@ -148,6 +137,7 @@
             <h:form id="FormDialogModTar">
                 <p:panelGrid columns="2">
 
+                 
                     <p:outputLabel value="DATO1:"/>
                     <p:inputText value="#{tareaC.selectedTarea.DATO1}" maxlength="50" required="false"/>
                     <p:outputLabel value="DATO2:"/>
