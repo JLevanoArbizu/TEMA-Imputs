@@ -26,6 +26,12 @@
                 <p:menuitem value="Ejemplo3" outcome="ejemplo3">
                     <f:param name="i" value="3" />
                 </p:menuitem>
+                <p:menuitem value="Ejemplo4" outcome="ejemplo4">
+                    <f:param name="i" value="4" />
+                </p:menuitem>
+                <p:menuitem value="Ejemplo5" outcome="ejemplo5">
+                    <f:param name="i" value="5" />
+                </p:menuitem>
             </p:tabMenu>
         </h:form>
 
@@ -42,6 +48,25 @@
             <center>EJEMPLO3</center>
 
         </h1>
+
+        <h:form>
+            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                <h:outputText value="Font:" />
+                <p:selectManyButton value="#{tareaC.selectedOptions}">
+                    <f:selectItem itemLabel="b" itemValue="b" />
+                    <f:selectItem itemLabel="u" itemValue="u" />
+                    <f:selectItem itemLabel="i" itemValue="i" />
+                </p:selectManyButton>
+
+                <p:commandButton value="Submit" update="display" icon="pi pi-check" />
+                <p:spacer />
+
+                <h:outputText value="Selected:" />
+                <p:dataList id="display" value="#{tareaC.selectedOptions}" var="font" emptyMessage="No seleccionaste nada">
+                    <h:outputText value="#{font}" style="font-weight: bold" />
+                </p:dataList>
+            </h:panelGrid>
+        </h:form>
 
         <h:form id="FormTarea"> 
             <p:panelGrid columns="4">
@@ -175,7 +200,7 @@
                     <h:outputText value="#{tarea.DATO4 eq 'PI' ? 'Pikachu' :  ''}"/>
                     <h:outputText value="#{tarea.DATO4 eq 'MI' ? 'Miau' :  ''}"/>
                     <h:outputText value="#{tarea.DATO4 eq 'R' ? 'Team Rocket' :  ''}"/>
-                    
+
                 </p:column>
 
             </p:dataTable>
@@ -191,7 +216,7 @@
             <h:form id="FormDialogModTar">
                 <p:panelGrid columns="2">
 
-                   
+
                     <p:outputLabel value="DATO1:"/>
                     <p:inputText value="#{tareaC.selectedTarea.DATO1}" maxlength="50" required="false"/>
                     <p:outputLabel value="DATO2:"/>

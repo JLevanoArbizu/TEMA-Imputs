@@ -46,14 +46,64 @@
         </p:messages>
 
         <h1>
-            <center>EJEMPLO2</center>
+            <center>EJEMPLO 5</center>
 
         </h1>
 
+
+        <h:form>
+            <h:panelGrid columns="2" cellpadding="5">
+
+                <p:outputLabel for="menu" value="Basic:" />
+                <p:selectCheckboxMenu id="menu" value="#{ejemplo5.selectedCities}" label="Cities"
+                                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                    <f:selectItems value="#{ejemplo5.cities}" />
+                </p:selectCheckboxMenu>
+
+                <p:outputLabel for="multiple" value="Multiple:" />
+                <p:selectCheckboxMenu id="multiple" value="#{ejemplo5.selectedCities2}" label="Cities" multiple="true"
+                                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                    <f:selectItems value="#{ejemplo5.cities}" />
+                </p:selectCheckboxMenu>
+
+                <p:outputLabel for="grouped" value="Grouped:" />
+                <p:selectCheckboxMenu id="grouped" value="#{ejemplo5.selectedCars}" label="Cars" multiple="true"
+                                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                    <f:selectItems value="#{ejemplo5.cars}" />
+                </p:selectCheckboxMenu>
+            </h:panelGrid>
+
+            <p:commandButton value="Submit" update="displayItems" oncomplete="PF('itemDialog').show()" style="margin-top:10px;" />
+
+            <p:dialog header="Selected Items" modal="true" showEffect="fade" hideEffect="fade" widgetVar="itemDialog" width="250">
+                <p:outputPanel id="displayItems">
+                    <p:dataList value="#{ejemplo5.selectedCities}" var="city" emptyMessage="No cities selected" style="margin-bottom: 10px;">
+                        <f:facet name="header">
+                            Basic
+                        </f:facet>
+                        #{city}
+                    </p:dataList>
+
+                    <p:dataList value="#{ejemplo5.selectedCities2}" var="city" emptyMessage="No cities selected" style="margin-bottom: 10px;">
+                        <f:facet name="header">
+                            Multiple
+                        </f:facet>
+                        #{city}
+                    </p:dataList>
+
+                    <p:dataList value="#{ejemplo5.selectedCars}" var="car" emptyMessage="No cars selected">
+                        <f:facet name="header">
+                            Grouped
+                        </f:facet>
+                        #{car}
+                    </p:dataList>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+
         <h:form id="FormTarea"> 
-            <p:panelGrid columns="2" >
-            
-                
+            <p:panelGrid columns="2">
+
 
                 <p:outputLabel  value="Tipo de ser vivo" />
                 <p:selectOneMenu  value="#{tareaC.tarea.DATO1}" style="width:125px">
@@ -66,6 +116,7 @@
 
                 <p:outputLabel value="Rango de edad "/>
                 <p:selectOneRadio value="#{tareaC.tarea.DATO2}" 
+
                                   unselectable="false" required="true">
                     <f:selectItem itemLabel="10 - 20" itemValue="J"/>
                     <f:selectItem itemLabel="21 - 40" itemValue="A" />
@@ -73,20 +124,18 @@
                 </p:selectOneRadio>
 
                 <h:outputText value="Donde vives" />
-                <p:selectOneButton value="#{tareaC.tarea.DATO3}" >
+                <p:selectOneButton value="#{tareaC.tarea.DATO3}">
                     <f:selectItem itemLabel="Tierra" itemValue="T" />
                     <f:selectItem itemLabel="Marte" itemValue="M" />
                     <f:selectItem itemLabel="Otro" itemValue="O" />
                 </p:selectOneButton>
 
 
-                <h:outputText class="pi pi-check" value="Aceptas los terminos " />  
-                <p:triStateCheckbox value="#{tareaC.tarea.DATO4}" validator="#{tareaC.validar}" validatorMessage="No ingresaste los terminos"  />
+                <h:outputText value="Aceptas los terminos "/>  
+                <p:triStateCheckbox value="#{tareaC.tarea.DATO4}"
+                                    requiredMessage="Seleccione los terminos."/>  
 
-
-
-                <p:commandButton value="Registrar" actionListener="#{tareaC.registrarTarea()}" 
-                                 update="FormTarea FormTblTarea:tblTarea" />
+                <p:commandButton value="Registrar" actionListener="#{tareaC.registrarTarea()}" update="FormTarea FormTblTarea:tblTarea"/>
 
             </p:panelGrid>
 
@@ -159,7 +208,7 @@
                     <p:outputLabel value="DATO2:"/>
                     <p:inputText value="#{tareaC.selectedTarea.DATO2}" required="false"/>
                     <p:outputLabel value="DATO3:"/>
-                    <p:inputText value="#{tareaC.selectedTarea.DATO3}" required="false" />
+                    <p:inputText value="#{tareaC.selectedTarea.DATO3}" required="false"/>
                     <p:outputLabel value="DATO4:"/>
                     <p:inputText value="#{tareaC.selectedTarea.DATO4}" required="false"/>
 

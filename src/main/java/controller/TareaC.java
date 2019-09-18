@@ -7,16 +7,21 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import model.TAREA;
 
 @Named(value = "tareaC")
 @SessionScoped
+@ManagedBean
 public class TareaC implements Serializable {
 
     TAREA tarea = new TAREA();
     private TAREA selectedTarea;
     private List<TAREA> lstTarea;
+    private List<String> selectedOptions;
 
     @PostConstruct
     public void iniciar() {
@@ -79,6 +84,25 @@ public class TareaC implements Serializable {
         }
     }
 
+    public void validar(FacesContext context, 
+            UIComponent toValidate,  
+            Object value) {  
+        context = FacesContext.getCurrentInstance();
+        String texto = (String) value;
+        if (!texto.equalsIgnoreCase("1") && !texto.equalsIgnoreCase("2")) {
+            ((UIInput) toValidate).setValid(false);
+            context.addMessage(toValidate.getClientId(context), new FacesMessage("Es obligatorio optar por los terminos"));
+        }
+    }
+
+    public List<String> getSelectedOptions() {
+        return selectedOptions;
+    }
+
+    public void setSelectedOptions(List<String> selectedOptions) {
+        this.selectedOptions = selectedOptions;
+    }
+
     public TAREA getTarea() {
         return tarea;
     }
@@ -102,7 +126,5 @@ public class TareaC implements Serializable {
     public void setLstTarea(List<TAREA> lstTarea) {
         this.lstTarea = lstTarea;
     }
-    
-    
 
 }

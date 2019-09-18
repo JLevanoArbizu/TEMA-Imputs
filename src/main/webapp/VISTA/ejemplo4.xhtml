@@ -5,9 +5,9 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <!--SelectOneMenu-1, SelectManyButton-0, SelectManyCheckbox-0, SelectOneButton-1, SelectCheckboxMenu-0, TriStateCheckbox-1 -->
+    <!--SelectOneMenu-1, SelectManyButton-1, SelectManyCheckbox-1, SelectOneButton-1, SelectCheckboxMenu-0, TriStateCheckbox-1 -->
     <h:head>
-        <title>Tarea</title>
+        <title></title>
     </h:head>
 
     <h:body>
@@ -29,8 +29,12 @@
                 <p:menuitem value="Ejemplo4" outcome="ejemplo4">
                     <f:param name="i" value="4" />
                 </p:menuitem>
+                <p:menuitem value="Ejemplo5" outcome="ejemplo5">
+                    <f:param name="i" value="5" />
+                </p:menuitem>
             </p:tabMenu>
         </h:form>
+
 
         <p:growl life="1500">
             <p:autoUpdate/>
@@ -41,51 +45,60 @@
         </p:messages>
 
         <h1>
-            <center>EJEMPLO1</center>
+            <center>EJEMPLO4</center>
 
         </h1>
 
 
+
+        <h:form>
+            <h3 style="margin-top:0px">Basic Layout</h3>
+            <p:selectManyCheckbox id="basic" value="#{checkboxView.selectedConsoles}">
+                <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+                <f:selectItem itemLabel="PS4" itemValue="PS4" />
+                <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+            </p:selectManyCheckbox>
+
+            <h3>Grid Layout</h3>
+            <p:selectManyCheckbox id="grid" value="#{checkboxView.selectedCities}" layout="grid" columns="3">
+                <f:selectItems value="#{checkboxView.cities}" var="city" itemLabel="#{city}" itemValue="#{city}" />
+            </p:selectManyCheckbox>
+
+            <h3>Grouped</h3>
+            <p:selectManyCheckbox id="grid3" value="#{checkboxView.selectedCars}" layout="pageDirection" columns="1">
+                <f:selectItems value="#{checkboxView.cars}" var="car" itemLabel="#{car}" itemValue="#{car}" />
+            </p:selectManyCheckbox>
+
+            <p:separator />
+
+            <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" icon="pi pi-check" />
+
+            <p:dialog  header="Values" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">
+                <p:outputPanel id="display">
+                    <p:dataList value="#{checkboxView.selectedConsoles}" var="console">
+                        <f:facet name="header">
+                            Basic
+                        </f:facet>
+                        #{console}
+                    </p:dataList>
+                    <p:dataList value="#{checkboxView.selectedCities}" var="city">
+                        <f:facet name="header">
+                            Grid
+                        </f:facet>
+                        #{city}
+                    </p:dataList>
+
+                    <p:dataList value="#{checkboxView.selectedCars}" var="car">
+                        <f:facet name="header">
+                            Cars
+                        </f:facet>
+                        #{car}
+                    </p:dataList>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+
         <h:form id="FormTarea"> 
-            <p:panelGrid columns="2">
-
-                <p:outputLabel value="Nombre de la persona:"/>
-                <p:inputText value="#{tareaC.tarea.DATO1}" maxlength="50"/>
-
-
-                <p:outputLabel  value="Sexo:" />
-                <p:selectOneMenu  value="#{tareaC.tarea.DATO4}" style="width:125px">
-                    <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                    <f:selectItem itemLabel="Masculino" itemValue="M" />
-                    <f:selectItem itemLabel="Femenino" itemValue="F" />
-                    <f:selectItem itemLabel="Sin especificar" itemValue="S" />
-                    <f:selectItem itemLabel="Pokemon" itemValue="p" />
-                </p:selectOneMenu>
-
-
-
-                <h:outputText value="Sexo" />
-                <p:selectOneButton value="#{tareaC.tarea.DATO3}">
-                    <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                    <f:selectItem itemLabel="Masculino" itemValue="M" />
-                    <f:selectItem itemLabel="Femenino" itemValue="F" />
-                    <f:selectItem itemLabel="Sin especificar" itemValue="S" />
-                    <f:selectItem itemLabel="Pokemon" itemValue="p" />
-                </p:selectOneButton>
-
-
-                <p:outputLabel value="Tipo de Acceso"/>
-                <p:selectOneRadio value="#{tareaC.tarea.DATO2}" 
-                                  requiredMessage="Seleccione el tipo de Acceso."
-                                  unselectable="false" required="true">
-                    <f:selectItem itemLabel="Superadministrador" itemValue="S"/>
-                    <f:selectItem itemLabel="Administrador" itemValue="A" />
-                    <f:selectItem itemLabel="Mortal" itemValue="M" />
-                </p:selectOneRadio>
-                <p:commandButton value="Registrar" actionListener="#{tareaC.registrarTarea()}" update="FormTarea FormTblTarea:tblTarea"/>
-
-            </p:panelGrid>
-
 
 
 
@@ -114,28 +127,28 @@
                 <p:column headerText="" style="width: 45px">
                     <p:outputLabel value="#{tarea.CODTAR}"/>
                 </p:column>
-                <p:column headerText="dato1" style="width: 100px">
-                    <p:outputLabel value="#{tarea.DATO1}" />
-                </p:column>
 
+                <p:column headerText="dato1" style="width: 250px"> 
+                    <h:outputText value="#{tarea.DATO1 eq 'H' ? 'Humano' :  ''}"/>
+                    <h:outputText value="#{tarea.DATO1 eq 'V' ? 'Vegetal' :  ''}"/>
+                    <h:outputText value="#{tarea.DATO1 eq 'P' ? 'Pokemon' :  ''}"/>
+                    <h:outputText value="#{tarea.DATO1 eq 'A' ? 'Animal' :  ''}"/>
+
+                </p:column>
                 <p:column headerText="dato2" style="width: 250px"> 
-                    <h:outputText value="#{tarea.DATO2 eq 'A' ? 'Administrador' :  ''}"/>
-                    <h:outputText value="#{tarea.DATO2 eq 'S' ? 'Super usuario' :  ''}"/>                    
-                    <h:outputText value="#{tarea.DATO2 eq 'M' ? 'Mortal' :  ''}"/> 
+                    <h:outputText value="#{tarea.DATO2 eq 'J' ? 'Joven' :  ''}"/>
+                    <h:outputText value="#{tarea.DATO2 eq 'V' ? 'Viejo' :  ''}"/>
+                    <h:outputText value="#{tarea.DATO2 eq 'A' ? 'Anciano' :  ''}"/>
                 </p:column>
                 <p:column headerText="dato3" style="width: 250px"> 
-                    <h:outputText value="#{tarea.DATO3 eq 'M' ? 'Masculino' :  ''}"/>
-                    <h:outputText value="#{tarea.DATO3 eq 'F' ? 'Femenino' :  ''}"/>                    
-                    <h:outputText value="#{tarea.DATO3 eq 'S' ? 'Sin Especificar' :  ''}"/> 
-                    <h:outputText value="#{tarea.DATO3 eq 'p' ? 'Pokemon' :  ''}"/>
+                    <h:outputText value="#{tarea.DATO3 eq 'T' ? 'Tierra' :  ''}"/>
+                    <h:outputText value="#{tarea.DATO3 eq 'M' ? 'Marte' :  ''}"/>
+                    <h:outputText value="#{tarea.DATO3 eq 'O' ? 'Otro' :  ''}"/>
                 </p:column>
-
-
                 <p:column headerText="dato4" style="width: 250px"> 
-                    <h:outputText value="#{tarea.DATO4 eq 'M' ? 'Masculino' :  ''}"/>
-                    <h:outputText value="#{tarea.DATO4 eq 'F' ? 'Femenino' :  ''}"/>                    
-                    <h:outputText value="#{tarea.DATO4 eq 'S' ? 'Sin Especificar' :  ''}"/> 
-                    <h:outputText value="#{tarea.DATO4 eq 'p' ? 'Pokemon' :  ''}"/>
+                    <h:outputText value="#{tarea.DATO4 eq '0' ? 'No Especifico' :  ''}"/>
+                    <h:outputText value="#{tarea.DATO4 eq '1' ? 'Acepto' :  ''}"/>
+                    <h:outputText value="#{tarea.DATO4 eq '2' ? 'No Acepto' :  ''}"/>
                 </p:column>
 
             </p:dataTable>
@@ -150,6 +163,7 @@
         <p:dialog header="ACTUALIZAR DATOS" widgetVar="dlgModTarea" resizable="false" modal="true"> 
             <h:form id="FormDialogModTar">
                 <p:panelGrid columns="2">
+
 
                     <p:outputLabel value="DATO1:"/>
                     <p:inputText value="#{tareaC.selectedTarea.DATO1}" maxlength="50" required="false"/>
@@ -174,3 +188,4 @@
         </h:form>
     </h:body>
 </html>
+
